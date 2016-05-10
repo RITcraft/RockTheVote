@@ -1,0 +1,7 @@
+name: RockTheVote
+version: 0.0.1
+description: Give the people the power
+authors: [jflory7, Keplar_]
+website: https://github.com/RITcraft/RockTheVote
+main: net.ritcraft.RockTheVote.RockTheVote
+prefix: RTV

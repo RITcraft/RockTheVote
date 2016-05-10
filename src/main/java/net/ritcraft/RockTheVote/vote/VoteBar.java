@@ -1,4 +1,4 @@
-package net.ritcraft.RockTheVote;
+package net.ritcraft.RockTheVote.vote;
 
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;

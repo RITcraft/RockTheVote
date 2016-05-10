@@ -19,10 +19,20 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @version 2016.05.09.v1
  */
 public class RockTheVote extends JavaPlugin {
+    private static RockTheVote instance;
+
+    /**
+     * Get an instance of RockTheVote
+     *
+     * @return Returns an instance of RockTheVote
+     */
+    public static RockTheVote getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
-
+        instance = this;
     }
 
     @Override

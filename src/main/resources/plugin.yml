@@ -1,7 +1,26 @@
 name: RockTheVote
 version: 0.0.1
 description: Give the people the power
-authors: [jflory7, Keplar_]
+authors: [jflory7, Kepler_]
 website: https://github.com/RITcraft/RockTheVote
 main: net.ritcraft.RockTheVote.RockTheVote
 prefix: RTV
+
+commands:
+  vote:
+    description: Vote for something to happen on the server
+    usage: /<command> <vote>
+
+  poll:
+    description: Share your opinion on a server poll
+    usage: /<command> <poll> <option>
+
+permissions:
+  rockthevote.vote:
+    description: Use the /vote command.
+
+  rockthevote.poll:
+    description: Use the /poll command.
+
+  rockthevote.admin:
+    description: Manage votes and polls.

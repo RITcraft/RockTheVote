@@ -8,6 +8,7 @@
 
 package net.ritcraft.RockTheVote;
 
+import net.ritcraft.RockTheVote.commands.CommandManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -33,6 +34,9 @@ public class RockTheVote extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        // Register commands
+        new CommandManager().registerCommands();
     }
 
     @Override

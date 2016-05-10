@@ -18,7 +18,7 @@ public class Vote implements Runnable {
     private static final int TASK_NOT_RUNNING = -1;
 
     private final Set<UUID> votes = new HashSet<>(); // The votes cast.
-    private final long expireTicks; // Time until vote resets. Zero if never resets.
+    private final int expireTime; // Time until vote resets. Zero if never resets.
     private final double passPercent; // The percent of online players required to pass.
     private final VoteBar voteBar; // The vote bar displayed to players.
 
@@ -32,23 +32,24 @@ public class Vote implements Runnable {
     /**
      * Create a new vote instance.
      *
-     * @param voteName The name of the vote.
-     * @param expireTicks The number of ticks until the vote expires.
-     * @param passPercent The percent of players online required to pass the vote.
-     * @param commands The commands run when the vote passes.
+     * @param voteName        The name of the vote.
+     * @param expireTime      The number of seconds until the vote expires.
+     * @param passPercent     The percent of players online required to pass the vote.
+     * @param commands        The commands run when the vote passes.
      * @param voteDescription A description of the vote.
-     * @param passMessage The message shown when the vote passes.
+     * @param passMessage     The message shown when the vote passes.
      */
-    public Vote(String voteName, long expireTicks, double passPercent,
-                List<String> commands, String voteDescription, String passMessage) {
+    public Vote(String voteName, int expireTime, double passPercent,
+                List<String> commands, String voteDescription, String passMessage,
+                BarColor voteBarColor, BarStyle voteBarStyle) {
         this.voteName = voteName;
-        this.expireTicks = expireTicks;
+        this.expireTime = expireTime;
         this.passPercent = passPercent;
         this.commands = commands;
         this.voteDescription = voteDescription;
         this.passMessage = passMessage;
 
-        voteBar = new VoteBar(this, BarColor.BLUE, BarStyle.SEGMENTED_10); // TODO Don't hardcode color/style
+        voteBar = new VoteBar(this, voteBarColor, voteBarStyle); // TODO Don't hardcode color/style
     }
 
     /**
@@ -142,9 +143,9 @@ public class Vote implements Runnable {
         cancelExpiration();
 
         // Start new task
-        if (expireTicks > 0) {
+        if (expireTime > 0) {
             expireTaskID = Bukkit.getScheduler().scheduleSyncDelayedTask(
-                    RockTheVote.getInstance(), this, expireTicks);
+                    RockTheVote.getInstance(), this, expireTime * 20L);
         }
     }
 

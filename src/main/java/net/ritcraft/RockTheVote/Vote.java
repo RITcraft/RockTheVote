@@ -1,10 +1,12 @@
 package net.ritcraft.RockTheVote;
 
 import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,23 +19,47 @@ public class Vote implements Runnable {
     private final Set<UUID> votes = new HashSet<>(); // The votes cast.
     private final long expireTicks; // Time until vote resets. Zero if never resets.
     private final double passPercent; // The percent of online players required to pass.
-    private final String command; // Command executed if the vote passes.
-    private final String message; // Message broadcasted if the vote passes.
+    private final VoteBar voteBar; // The vote bar displayed to players.
+
+    public final String voteName; // The name of the vote.
+    public final List<String> commands; // Commands executed if the vote passes.
+    public final String voteDescription; // Message describing the vote.
+    public final String passMessage; // Message broadcasted if the vote passes.
 
     private int expireTaskID = TASK_NOT_RUNNING;
 
-    public Vote(long expireTicks, double passPercent, String command, String message) {
+    /**
+     * Create a new vote instance.
+     *
+     * @param voteName The name of the vote.
+     * @param expireTicks The number of ticks until the vote expires.
+     * @param passPercent The percent of players online required to pass the vote.
+     * @param commands The commands run when the vote passes.
+     * @param voteDescription A description of the vote.
+     * @param passMessage The message shown when the vote passes.
+     */
+    public Vote(String voteName, long expireTicks, double passPercent,
+                List<String> commands, String voteDescription, String passMessage) {
+        this.voteName = voteName;
         this.expireTicks = expireTicks;
         this.passPercent = passPercent;
-        this.command = command;
-        this.message = message;
+        this.commands = commands;
+        this.voteDescription = voteDescription;
+        this.passMessage = passMessage;
+
+        voteBar = new VoteBar(this, BarColor.BLUE, BarStyle.SEGMENTED_10); // TODO Don't hardcode color/style
     }
 
     /**
      * Updates the vote. Checks if enough people have voted, etc.
      */
     public void update() {
+        voteBar.update();
 
+        // Pass the vote if enough players voted
+        if (getVoteCount() >= getVotesRequired()) {
+            passVote();
+        }
     }
 
     /**
@@ -57,14 +83,54 @@ public class Vote implements Runnable {
      */
     public void revokeVote(Player player) {
         votes.remove(player.getUniqueId());
+        update();
     }
 
+    /**
+     * Pass this vote.
+     */
     public void passVote() {
+        resetVote();
 
+        // Broadcast message
+        Bukkit.broadcastMessage(passMessage);
+
+        // Execute commands
+        for (String s : commands) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s);
+        }
     }
 
+    /**
+     * Reset this vote.
+     */
     public void resetVote() {
+        votes.clear();
+        cancelExpiration();
+        update();
+    }
 
+    /**
+     * Get the number of votes cast.
+     *
+     * @return Returns the number of votes cast.
+     */
+    public int getVoteCount() {
+        return votes.size();
+    }
+
+    /**
+     * Get the number of votes required for the vote to pass.
+     *
+     * @return Returns the number of votes required.
+     */
+    public int getVotesRequired() {
+        int playersOnline = Bukkit.getOnlinePlayers().size();
+        if (playersOnline == 1) {
+            return 1;
+        } else {
+            return (int) Math.floor(playersOnline * passPercent) + 1;
+        }
     }
 
     /**

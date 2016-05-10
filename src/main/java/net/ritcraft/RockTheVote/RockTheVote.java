@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * RockTheVote.java
- *
+ * <p>
  * This plugin allows users to trigger certain actions on the server based on the popular vote.
  *
  * @author Justin W. Flory

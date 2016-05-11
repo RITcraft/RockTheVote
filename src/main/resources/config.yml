@@ -4,9 +4,9 @@
 #   votes:
 #     vote name:       The name of the vote. Can have spaces.
 #       description:   A description of the vote.
-#       pass-message:  The message broadcasted when the vote is passed.
 #       expire-time:   The number of seconds after which the vote will be reset if not passed. Zero to disable.
-#       percent:       The percent of online players required to pass the vote.
+#       pass-percent:  The percent of online players required to pass the vote.
+#       pass-message:  The message broadcasted when the vote is passed.
 #       bar-color:     The color of the vote progress bar.
 #       bar-style:     The style of the vote progress bar.
 #       commands:      The commands that will be run if the vote passes.
@@ -22,27 +22,27 @@
 
 voting:
   defaults:
-    expire-time: 120
-    percent: .5
-    bar-color: BLUE
-    bar-style: SEGMENTED_10
+#    expire-time: 120
+#    pass-percent: .5
+#    bar-color: BLUE
+#    bar-style: SEGMENTED_10
 
   votes:
-    vote name:
-      description: An example vote.
-      pass-message: An example vote has been passed!
-      expire-time: 600
-      percent: .75
-      bar-color: GREEN
-      bar-style: SOLID
-      commands:
-      - say This is the say command.
-      - say This is another say command.
+#    vote name:
+#      description: An example vote.
+#      expire-time: 600
+#      pass-percent: .75
+#      pass-message: An example vote has been passed!
+#      bar-color: GREEN
+#      bar-style: SOLID
+#      commands:
+#      - say This is the say command.
+#      - say This is another say command.
 
 polls:
-  poll name:
-    description: What is your favorite option?
-    options:
-    - The first option is always best
-    - This is clearly the favorite option
-    - Don't listen to any of the other options
+#  poll name:
+#    description: What is your favorite option?
+#    options:
+#    - The first option is always best
+#    - This is clearly the favorite option
+#    - Don't listen to any of the other options

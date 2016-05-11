@@ -21,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class RockTheVote extends JavaPlugin {
     private static RockTheVote instance;
+    private static Config configManager;
 
     /**
      * Get an instance of RockTheVote
@@ -35,6 +36,9 @@ public class RockTheVote extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        // Create the config manager
+        configManager = new Config();
+
         // Register commands
         new CommandManager().registerCommands();
     }
@@ -42,5 +46,14 @@ public class RockTheVote extends JavaPlugin {
     @Override
     public void onDisable() {
 
+    }
+
+    /**
+     * Get this plugin's config manager.
+     *
+     * @return Returns this plugin's config manager.
+     */
+    public static Config getConfigManager() {
+        return configManager;
     }
 }

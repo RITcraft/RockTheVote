@@ -1,6 +1,6 @@
 # ------------------------- Configuration Description -------------------------
 # voting:
-#   defaults:          If
+#   defaults:          If vote settings are left out, these defaults will be used.
 #   votes:
 #     vote name:       The name of the vote. Can have spaces.
 #       description:   A description of the vote.
@@ -16,7 +16,7 @@
 #     description:     A description of the poll.
 #     options:         The options available for the poll
 #
-# ------------------------------ Vote Bar Values ------------------------------
+# ------------------------------- Vote Bar Appearance -----------------------------
 # bar-color: BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
 # bar-style: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
 

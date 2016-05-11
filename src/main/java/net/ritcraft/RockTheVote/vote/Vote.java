@@ -128,11 +128,7 @@ public class Vote implements Runnable {
      */
     public int getVotesRequired() {
         int playersOnline = Bukkit.getOnlinePlayers().size();
-        if (playersOnline == 1) {
-            return 1;
-        } else {
-            return (int) Math.floor(playersOnline * passPercent) + 1;
-        }
+        return (int) Math.ceil(playersOnline * passPercent);
     }
 
     /**

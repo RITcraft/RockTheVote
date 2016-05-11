@@ -49,7 +49,7 @@ public class Vote implements Runnable {
         this.voteDescription = voteDescription;
         this.passMessage = passMessage;
 
-        voteBar = new VoteBar(this, voteBarColor, voteBarStyle); // TODO Don't hardcode color/style
+        voteBar = new VoteBar(this, voteBarColor, voteBarStyle);
     }
 
     /**

@@ -1,6 +1,8 @@
 package net.ritcraft.RockTheVote.vote;
 
 import net.ritcraft.RockTheVote.RockTheVote;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
@@ -21,7 +23,11 @@ public class VoteManager {
 
     private final HashMap<String, Vote> votes = new HashMap<>(); // <lowercase vote name, vote>
 
+    /**
+     * Create a new instance of VoteManager. Should be instantiated after the config manager.
+     */
     public VoteManager() {
+        loadVotes();
     }
 
     public void loadVotes() {
@@ -42,8 +48,8 @@ public class VoteManager {
         int defExpireTime = sectionDefaults.getInt(KEY_EXPIRE_TIME);
         double defPassPercent = sectionDefaults.getDouble(KEY_PASS_PERCENT);
         String defPassMessage = sectionDefaults.getString(KEY_PASS_MESSAGE);
-        String defBarColor = sectionDefaults.getString(KEY_BAR_COLOR);
-        String defBarStyle = sectionDefaults.getString(KEY_BAR_STYLE);
+        String defBarColorStr = sectionDefaults.getString(KEY_BAR_COLOR);
+        String defBarStyleStr = sectionDefaults.getString(KEY_BAR_STYLE);
 
         // Load votes
         for (String voteName : sectionVotes.getKeys(false)) {
@@ -53,13 +59,38 @@ public class VoteManager {
             int expireTime = sectionDefaults.getInt(KEY_EXPIRE_TIME, defExpireTime);
             double passPercent = sectionDefaults.getDouble(KEY_PASS_PERCENT, defPassPercent);
             String passMessage = sectionDefaults.getString(KEY_PASS_MESSAGE, defPassMessage);
-            String barColor = sectionDefaults.getString(KEY_BAR_COLOR, defBarColor);
-            String barStyle = sectionDefaults.getString(KEY_BAR_STYLE, defBarStyle);
+            String barColorStr = sectionDefaults.getString(KEY_BAR_COLOR, defBarColorStr);
+            String barStyleStr = sectionDefaults.getString(KEY_BAR_STYLE, defBarStyleStr);
             List<String> commands = sectionDefaults.getStringList(KEY_COMMANDS);
 
-            // TODO
-            //votes.put(voteName, new Vote(voteName, expireTime, passPercent, commands, desc, passMessage, ))
+            BarColor barColor;
+            try {
+                barColor = BarColor.valueOf(barColorStr);
+            } catch (IllegalArgumentException e) {
+                RockTheVote.getInstance().getLogger().warning("Invalid value for bar-color: " + barColorStr);
+                continue;
+            }
+
+            BarStyle barStyle;
+            try {
+                barStyle = BarStyle.valueOf(barStyleStr);
+            } catch (IllegalArgumentException e) {
+                RockTheVote.getInstance().getLogger().warning("Invalid value for bar-style: " + barStyleStr);
+                continue;
+            }
+
+            votes.put(voteName.toLowerCase(), new Vote(voteName, expireTime, passPercent,
+                    commands, desc, passMessage, barColor, barStyle));
         }
     }
 
+    /**
+     * Get a vote from a specific name.
+     *
+     * @param voteName The name of the vote.
+     * @return Returns the vote with the specified name.
+     */
+    public Vote getVote(String voteName) {
+        return votes.get(voteName.toLowerCase());
+    }
 }

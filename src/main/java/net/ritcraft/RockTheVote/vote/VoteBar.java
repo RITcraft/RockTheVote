@@ -37,4 +37,9 @@ public class VoteBar {
             bossBar.setVisible(false);
         }
     }
+
+    public void disable() {
+        bossBar.removeAll();
+        bossBar.setVisible(false);
+    }
 }

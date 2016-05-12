@@ -9,6 +9,7 @@
 package net.ritcraft.RockTheVote;
 
 import net.ritcraft.RockTheVote.commands.CommandManager;
+import net.ritcraft.RockTheVote.vote.VoteManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -22,6 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class RockTheVote extends JavaPlugin {
     private static RockTheVote instance;
     private static Config configManager;
+    private static VoteManager voteManager;
 
     /**
      * Get an instance of RockTheVote
@@ -36,8 +38,9 @@ public class RockTheVote extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // Create the config manager
+        // Create managers
         configManager = new Config();
+        voteManager = new VoteManager();
 
         // Register commands
         new CommandManager().registerCommands();
@@ -55,5 +58,14 @@ public class RockTheVote extends JavaPlugin {
      */
     public static Config getConfigManager() {
         return configManager;
+    }
+
+    /**
+     * Get the vote manager.
+     *
+     * @return Returns the vote manager.
+     */
+    public static VoteManager getVoteManager() {
+        return voteManager;
     }
 }

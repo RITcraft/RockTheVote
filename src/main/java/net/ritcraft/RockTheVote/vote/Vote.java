@@ -53,6 +53,13 @@ public class Vote implements Runnable {
     }
 
     /**
+     * Get the name of the vote.
+     */
+    public String getName() {
+        return voteName;
+    }
+
+    /**
      * Updates the vote. Checks if enough people have voted, etc.
      */
     public void update() {

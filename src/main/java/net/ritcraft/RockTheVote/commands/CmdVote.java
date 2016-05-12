@@ -29,7 +29,7 @@ public class CmdVote extends SimpleCommand {
 
         Player player = (Player) sender;
         if (args.length == 0) {
-            showVotes(player);
+            showVotes(player, "");
         } else {
             castVote(player, StringUtils.join(args, ' '));
         }
@@ -41,7 +41,7 @@ public class CmdVote extends SimpleCommand {
         return null;
     }
 
-    public void showVotes(Player player) {
+    public void showVotes(Player player, String startingWith) {
         player.sendMessage("You're out of luck... this feature hasn't been implemented yet. :(");
         player.sendMessage("Normally you would see what votes are available when you run this command.");
     }
@@ -50,6 +50,7 @@ public class CmdVote extends SimpleCommand {
         Vote vote = RockTheVote.getVoteManager().getVote(voteName);
         if (vote == null) {
             player.sendMessage(String.format(VOTE_NOT_FOUND, voteName));
+            showVotes(player, voteName);
             return;
         }
 

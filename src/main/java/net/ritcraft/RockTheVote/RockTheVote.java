@@ -48,7 +48,7 @@ public class RockTheVote extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        voteManager.disableVotes();
     }
 
     /**

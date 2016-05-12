@@ -31,11 +31,7 @@ public class VoteManager {
     }
 
     public void loadVotes() {
-        // Remove all votes
-        for (String s : votes.keySet()) {
-            votes.get(s).resetVote();
-            votes.remove(s);
-        }
+        disableVotes();
 
         // Load votes from config
         ConfigurationSection
@@ -44,43 +40,51 @@ public class VoteManager {
                 sectionVotes = sectionVoting.getConfigurationSection("votes");
 
         // Load vote defaults
-        String defDesc = sectionDefaults.getString(KEY_DESCRIPTION);
-        int defExpireTime = sectionDefaults.getInt(KEY_EXPIRE_TIME);
-        double defPassPercent = sectionDefaults.getDouble(KEY_PASS_PERCENT);
-        String defPassMessage = sectionDefaults.getString(KEY_PASS_MESSAGE);
-        String defBarColorStr = sectionDefaults.getString(KEY_BAR_COLOR);
-        String defBarStyleStr = sectionDefaults.getString(KEY_BAR_STYLE);
+        String defDesc, defPassMessage, defBarColorStr, defBarStyleStr;
+        defDesc = defPassMessage = defBarColorStr = defBarStyleStr = null;
+        int defExpireTime = 0;
+        double defPassPercent = 0;
+        if (sectionDefaults != null) {
+            defDesc = sectionDefaults.getString(KEY_DESCRIPTION);
+            defExpireTime = sectionDefaults.getInt(KEY_EXPIRE_TIME);
+            defPassPercent = sectionDefaults.getDouble(KEY_PASS_PERCENT);
+            defPassMessage = sectionDefaults.getString(KEY_PASS_MESSAGE);
+            defBarColorStr = sectionDefaults.getString(KEY_BAR_COLOR);
+            defBarStyleStr = sectionDefaults.getString(KEY_BAR_STYLE);
+        }
 
         // Load votes
-        for (String voteName : sectionVotes.getKeys(false)) {
-            ConfigurationSection sectionCurVote = sectionVotes.getConfigurationSection(voteName);
+        if (sectionVotes != null) {
+            for (String voteName : sectionVotes.getKeys(false)) {
+                ConfigurationSection sectionCurVote = sectionVotes.getConfigurationSection(voteName);
 
-            String desc = sectionDefaults.getString(KEY_DESCRIPTION, defDesc);
-            int expireTime = sectionDefaults.getInt(KEY_EXPIRE_TIME, defExpireTime);
-            double passPercent = sectionDefaults.getDouble(KEY_PASS_PERCENT, defPassPercent);
-            String passMessage = sectionDefaults.getString(KEY_PASS_MESSAGE, defPassMessage);
-            String barColorStr = sectionDefaults.getString(KEY_BAR_COLOR, defBarColorStr);
-            String barStyleStr = sectionDefaults.getString(KEY_BAR_STYLE, defBarStyleStr);
-            List<String> commands = sectionDefaults.getStringList(KEY_COMMANDS);
+                String desc = sectionCurVote.getString(KEY_DESCRIPTION, defDesc);
+                int expireTime = sectionCurVote.getInt(KEY_EXPIRE_TIME, defExpireTime);
+                double passPercent = sectionCurVote.getDouble(KEY_PASS_PERCENT, defPassPercent);
+                String passMessage = sectionCurVote.getString(KEY_PASS_MESSAGE, defPassMessage);
+                String barColorStr = sectionCurVote.getString(KEY_BAR_COLOR, defBarColorStr);
+                String barStyleStr = sectionCurVote.getString(KEY_BAR_STYLE, defBarStyleStr);
+                List<String> commands = sectionCurVote.getStringList(KEY_COMMANDS);
 
-            BarColor barColor;
-            try {
-                barColor = BarColor.valueOf(barColorStr);
-            } catch (IllegalArgumentException e) {
-                RockTheVote.getInstance().getLogger().warning("Invalid value for bar-color: " + barColorStr);
-                continue;
+                BarColor barColor;
+                try {
+                    barColor = BarColor.valueOf(barColorStr);
+                } catch (IllegalArgumentException e) {
+                    RockTheVote.getInstance().getLogger().warning("Invalid value for bar-color: " + barColorStr);
+                    continue;
+                }
+
+                BarStyle barStyle;
+                try {
+                    barStyle = BarStyle.valueOf(barStyleStr);
+                } catch (IllegalArgumentException e) {
+                    RockTheVote.getInstance().getLogger().warning("Invalid value for bar-style: " + barStyleStr);
+                    continue;
+                }
+
+                votes.put(voteName.toLowerCase(), new Vote(voteName, expireTime, passPercent,
+                        commands, desc, passMessage, barColor, barStyle));
             }
-
-            BarStyle barStyle;
-            try {
-                barStyle = BarStyle.valueOf(barStyleStr);
-            } catch (IllegalArgumentException e) {
-                RockTheVote.getInstance().getLogger().warning("Invalid value for bar-style: " + barStyleStr);
-                continue;
-            }
-
-            votes.put(voteName.toLowerCase(), new Vote(voteName, expireTime, passPercent,
-                    commands, desc, passMessage, barColor, barStyle));
         }
     }
 
@@ -92,5 +96,15 @@ public class VoteManager {
      */
     public Vote getVote(String voteName) {
         return votes.get(voteName.toLowerCase());
+    }
+
+    /**
+     * Disable all of the loaded votes
+     */
+    public void disableVotes() {
+        for (String s : votes.keySet()) {
+            votes.get(s).disable();
+            votes.remove(s);
+        }
     }
 }

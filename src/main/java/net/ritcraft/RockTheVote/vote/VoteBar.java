@@ -26,7 +26,7 @@ public class VoteBar {
         if (voteCount > 0) {
             double progress = voteCount / (double) vote.getVotesRequired();
 
-            bossBar.setTitle(vote.voteDescription + " - " + vote.getVoteCount() + "/" + vote.getVotesRequired()); // TODO Don't hardcode title
+            bossBar.setTitle(vote.voteDescription + " (" + vote.getVoteCount() + "/" + vote.getVotesRequired() + ")"); // TODO Don't hardcode title
             bossBar.setProgress(progress);
             for (Player p : Bukkit.getOnlinePlayers()) {
                 bossBar.addPlayer(p);

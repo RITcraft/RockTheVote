@@ -139,6 +139,15 @@ public class Vote implements Runnable {
     }
 
     /**
+     * Disable the vote
+     */
+    public void disable() {
+        cancelExpiration();
+        votes.clear();
+        voteBar.update();
+    }
+
+    /**
      * Start/restart the expiration countdown
      */
     private void startExpiration() {

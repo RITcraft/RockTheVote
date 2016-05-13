@@ -23,21 +23,29 @@
 voting:
   defaults:
 #    expire-time: 120
-#    pass-percent: .5
+#    pass-percent: .75
 #    bar-color: BLUE
-#    bar-style: SEGMENTED_10
+#    bar-style: SOLID
 
   votes:
-#    vote name:
-#      description: An example vote.
-#      expire-time: 600
-#      pass-percent: .75
-#      pass-message: An example vote has been passed!
-#      bar-color: GREEN
-#      bar-style: SOLID
+#    day:
+#      description: Set the time to day.
+#      expire-time: 120
+#      pass-percent: .66
+#      pass-message: The time has been voted to day
+#      bar-color: YELLOW
+#      bar-style: SEGMENTED_10
 #      commands:
-#      - say This is the say command.
-#      - say This is another say command.
+#      - time set day
+#    night:
+#      description: Set the time to night.
+#      expire-time: 120
+#      pass-percent: .66
+#      pass-message: The time has been voted to night
+#      bar-color: PURPLE
+#      bar-style: SEGMENTED_10
+#      commands:
+#      - time set night
 
 polls:
 #  poll name:

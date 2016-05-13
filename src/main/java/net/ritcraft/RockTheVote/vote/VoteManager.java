@@ -30,7 +30,11 @@ public class VoteManager {
         loadVotes();
     }
 
+    /**
+     * Load votes from the plugin config.
+     */
     public void loadVotes() {
+        // Unload currently loaded votes
         disableVotes();
 
         // Load votes from config

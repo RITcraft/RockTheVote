@@ -51,7 +51,7 @@ public class CmdVote extends SimpleCommand {
             return;
         }
 
-        vote.castVote(player);
         player.sendMessage(Language.getVoteCast(vote.getName()));
+        vote.castVote(player);
     }
 }

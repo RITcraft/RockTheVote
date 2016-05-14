@@ -1,5 +1,6 @@
 package net.ritcraft.RockTheVote.vote;
 
+import net.ritcraft.RockTheVote.Language;
 import net.ritcraft.RockTheVote.RockTheVote;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -70,7 +71,7 @@ public class VoteManager {
                 try {
                     barColor = BarColor.valueOf(barColorStr);
                 } catch (IllegalArgumentException e) {
-                    RockTheVote.getInstance().getLogger().warning("Invalid value for bar-color: " + barColorStr);
+                    RockTheVote.getInstance().getLogger().warning(Language.getInvalidBarColor(barColorStr));
                     continue;
                 }
 
@@ -78,12 +79,13 @@ public class VoteManager {
                 try {
                     barStyle = BarStyle.valueOf(barStyleStr);
                 } catch (IllegalArgumentException e) {
-                    RockTheVote.getInstance().getLogger().warning("Invalid value for bar-style: " + barStyleStr);
+                    RockTheVote.getInstance().getLogger().warning(Language.getInvalidBarStyle(barStyleStr));
                     continue;
                 }
 
-                votes.put(voteName.toLowerCase(), new Vote(voteName, expireTime, passPercent,
-                        commands, desc, passMessage, barColor, barStyle));
+                votes.put(voteName.toLowerCase(), new Vote(
+                        Language.format(voteName), expireTime, passPercent, commands,
+                        Language.format(desc), Language.format(passMessage), barColor, barStyle));
             }
         }
     }

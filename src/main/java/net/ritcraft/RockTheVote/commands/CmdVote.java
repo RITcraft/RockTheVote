@@ -1,6 +1,7 @@
 package net.ritcraft.RockTheVote.commands;
 
 import net.md_5.bungee.api.ChatColor;
+import net.ritcraft.RockTheVote.Language;
 import net.ritcraft.RockTheVote.RockTheVote;
 import net.ritcraft.RockTheVote.vote.Vote;
 import org.apache.commons.lang.StringUtils;
@@ -13,17 +14,13 @@ import java.util.List;
  * Handles the toggle command.
  */
 public class CmdVote extends SimpleCommand {
-    private static final String
-            USAGE = "/vote [vote]",
-            VOTE_NOT_FOUND = ChatColor.RED + "There is no vote with the name '%s'",
-            VOTE_CAST = ChatColor.GREEN + "Your vote for " + ChatColor.BLUE + "%s" + ChatColor.GREEN + " has been cast",
-            PLAYER_ONLY = ChatColor.RED + "You must be a player to cast a vote";
+    private static final String USAGE = "/vote [vote]";
 
     @Override
     @SuppressWarnings("deprecation")
     public boolean onCommand(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(PLAYER_ONLY);
+            sender.sendMessage(Language.getVotePlayerOnly());
             return true;
         }
 
@@ -49,12 +46,12 @@ public class CmdVote extends SimpleCommand {
     public void castVote(Player player, String voteName) {
         Vote vote = RockTheVote.getVoteManager().getVote(voteName);
         if (vote == null) {
-            player.sendMessage(String.format(VOTE_NOT_FOUND, voteName));
+            player.sendMessage(Language.getVoteNotFound(voteName));
             showVotes(player, voteName);
             return;
         }
 
         vote.castVote(player);
-        player.sendMessage(String.format(VOTE_CAST, vote.getName()));
+        player.sendMessage(Language.getVoteCast(vote.getName()));
     }
 }

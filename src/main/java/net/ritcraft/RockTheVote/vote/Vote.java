@@ -54,9 +54,20 @@ public class Vote implements Runnable {
 
     /**
      * Get the name of the vote.
+     *
+     * @return Returns the vote's name.
      */
     public String getName() {
         return voteName;
+    }
+
+    /**
+     * Get the description of the vote.
+     *
+     * @return Returns the vote's description.
+     */
+    public String getDescription() {
+        return voteDescription;
     }
 
     /**

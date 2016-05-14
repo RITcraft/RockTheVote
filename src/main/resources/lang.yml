@@ -1,0 +1,8 @@
+vote-bar-title: '&6&l/vote <vote> &7-&6&l <desc> &7-&6&l Votes: <count>/<total>' # Variables: vote, desc, count, total
+
+invalid-bar-color: '&cInvalid value for bar-color: <value>' # Variables: value
+invalid-bar-style: '&cInvalid value for bar-style: <value>' # Variables: value
+
+vote-cast: '&aYour vote for &b<vote>&a has been cast'
+vote-not-found: '&cThere is no vote with the name &b<vote>'
+vote-player-only: '&cYou must be a player to cast a vote'

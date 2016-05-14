@@ -24,6 +24,7 @@ public class RockTheVote extends JavaPlugin {
     private static RockTheVote instance;
     private static Config configManager;
     private static VoteManager voteManager;
+    private static Language lang;
 
     /**
      * Get an instance of RockTheVote
@@ -41,6 +42,7 @@ public class RockTheVote extends JavaPlugin {
         // Create managers
         configManager = new Config();
         voteManager = new VoteManager();
+        Language.load();
 
         // Register commands
         new CommandManager().registerCommands();
@@ -67,5 +69,14 @@ public class RockTheVote extends JavaPlugin {
      */
     public static VoteManager getVoteManager() {
         return voteManager;
+    }
+
+    /**
+     * Get the language config.
+     *
+     * @return Returns the language config.
+     */
+    public static Language getLang() {
+        return lang;
     }
 }

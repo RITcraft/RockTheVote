@@ -1,5 +1,7 @@
 package net.ritcraft.RockTheVote.vote;
 
+import net.ritcraft.RockTheVote.Language;
+import net.ritcraft.RockTheVote.RockTheVote;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -26,7 +28,8 @@ public class VoteBar {
         if (voteCount > 0) {
             double progress = voteCount / (double) vote.getVotesRequired();
 
-            bossBar.setTitle(vote.voteDescription + " (" + vote.getVoteCount() + "/" + vote.getVotesRequired() + ")"); // TODO Don't hardcode title
+            bossBar.setTitle(Language.getVoteBarTitle(vote.getName(),
+                    vote.getDescription(), vote.getVoteCount(), vote.getVotesRequired()));
             bossBar.setProgress(progress);
             for (Player p : Bukkit.getOnlinePlayers()) {
                 bossBar.addPlayer(p);

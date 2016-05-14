@@ -1,7 +1,6 @@
 package net.ritcraft.RockTheVote.vote;
 
 import net.ritcraft.RockTheVote.Language;
-import net.ritcraft.RockTheVote.RockTheVote;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;

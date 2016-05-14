@@ -1,6 +1,5 @@
 package net.ritcraft.RockTheVote.commands;
 
-import net.md_5.bungee.api.ChatColor;
 import net.ritcraft.RockTheVote.Language;
 import net.ritcraft.RockTheVote.RockTheVote;
 import net.ritcraft.RockTheVote.vote.Vote;

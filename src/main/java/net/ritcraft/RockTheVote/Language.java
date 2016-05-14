@@ -84,7 +84,6 @@ public class Language {
     }
 
 
-
     public static String getVoteBarTitle(String voteName, String description, int count, int total) {
         return get("vote-bar-title", "vote", voteName, "desc", description, "count", s(count), "total", s(total));
     }

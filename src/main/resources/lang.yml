@@ -1,4 +1,4 @@
-vote-bar-title: '&6&l/vote <vote> &7-&6&l <desc> &7-&6&l Votes: <count>/<total>' # Variables: vote, desc, count, total
+vote-bar-title: '&6&l<desc> &7-&6&l Votes: <count>/<total> &7-&6&l /vote <vote>' # Variables: vote, desc, count, total
 
 invalid-bar-color: '&cInvalid value for bar-color: <value>' # Variables: value
 invalid-bar-style: '&cInvalid value for bar-style: <value>' # Variables: value

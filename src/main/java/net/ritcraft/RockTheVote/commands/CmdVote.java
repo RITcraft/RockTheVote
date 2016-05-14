@@ -7,6 +7,8 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,8 +40,19 @@ public class CmdVote extends SimpleCommand {
     }
 
     public void showVotes(Player player, String startingWith) {
-        player.sendMessage("You're out of luck... this feature hasn't been implemented yet. :(");
-        player.sendMessage("Normally you would see what votes are available when you run this command.");
+        List<String> matches = new ArrayList<>();
+        startingWith = startingWith.toLowerCase();
+        for (String name : RockTheVote.getVoteManager().getVoteNames()) {
+            if (name.toLowerCase().startsWith(startingWith)) {
+                matches.add(name);
+            }
+        }
+
+        // Sort matches alphabetically
+        Collections.sort(matches, String::compareToIgnoreCase);
+
+        // Show vote list to player
+        player.sendMessage(Language.getVoteList(matches));
     }
 
     public void castVote(Player player, String voteName) {

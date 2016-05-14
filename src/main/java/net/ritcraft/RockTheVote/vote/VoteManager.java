@@ -7,7 +7,9 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Manage all of the votes.
@@ -105,12 +107,25 @@ public class VoteManager {
     }
 
     /**
+     * Get all vote names.
+     *
+     * @return Returns the vote names.
+     */
+    public Set<String> getVoteNames() {
+        Set<String> result = new HashSet<>();
+        for (Vote vote : votes.values()) {
+            result.add(vote.getName());
+        }
+        return result;
+    }
+
+    /**
      * Disable all of the loaded votes
      */
     public void disableVotes() {
         for (String s : votes.keySet()) {
             votes.get(s).disable();
-            votes.remove(s);
         }
+        votes.clear();
     }
 }

@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Configuration for this plugin's messages.
@@ -106,5 +107,14 @@ public class Language {
 
     public static String getVotePlayerOnly() {
         return get("vote-player-only");
+    }
+
+    public static String getVoteList(List<String> votes) {
+        String[] names = new String[votes.size()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = get("vote-list.vote", "vote", votes.get(i));
+        }
+        String separator = get("vote-list.separator");
+        return get("vote-list.format", "votes", String.join(separator, names));
     }
 }

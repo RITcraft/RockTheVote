@@ -4,7 +4,7 @@
 #   votes:
 #     vote name:       The name of the vote. Can have spaces.
 #       description:   A description of the vote.
-#       expire-time:   The number of seconds after which the vote will be reset if not passed. Zero to disable.
+#       expire-time:   After a vote starts, it will reset after this many seconds. Zero to disable.
 #       pass-percent:  The percent of online players required to pass the vote.
 #       pass-message:  The message broadcasted when the vote is passed.
 #       bar-color:     The color of the vote progress bar.

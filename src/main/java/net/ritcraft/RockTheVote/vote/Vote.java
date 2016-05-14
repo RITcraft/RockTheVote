@@ -93,6 +93,7 @@ public class Vote implements Runnable {
         if (votes.contains(id)) return false;
         votes.add(id);
         update();
+        startExpiration();
         return true;
     }
 
@@ -166,7 +167,7 @@ public class Vote implements Runnable {
         cancelExpiration();
 
         // Start new task
-        if (expireTime > 0) {
+        if (expireTaskID == TASK_NOT_RUNNING && expireTime > 0) {
             expireTaskID = Bukkit.getScheduler().scheduleSyncDelayedTask(
                     RockTheVote.getInstance(), this, expireTime * 20L);
         }

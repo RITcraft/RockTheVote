@@ -30,7 +30,7 @@ voting:
   votes:
 #    day:
 #      description: Set the time to day.
-#      expire-time: 120
+#      expire-time: 60
 #      pass-percent: .66
 #      pass-message: The time has been voted to day
 #      bar-color: YELLOW
@@ -39,7 +39,7 @@ voting:
 #      - time set day
 #    night:
 #      description: Set the time to night.
-#      expire-time: 120
+#      expire-time: 60
 #      pass-percent: .66
 #      pass-message: The time has been voted to night
 #      bar-color: PURPLE

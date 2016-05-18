@@ -9,7 +9,10 @@
 package net.ritcraft.RockTheVote;
 
 import net.ritcraft.RockTheVote.commands.CommandManager;
+import net.ritcraft.RockTheVote.vote.VoteListener;
 import net.ritcraft.RockTheVote.vote.VoteManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -43,6 +46,10 @@ public class RockTheVote extends JavaPlugin {
         configManager = new Config();
         voteManager = new VoteManager();
         Language.load();
+
+        // Register events
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new VoteListener(), this);
 
         // Register commands
         new CommandManager().registerCommands();

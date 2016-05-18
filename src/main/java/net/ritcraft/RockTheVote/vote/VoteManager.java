@@ -5,6 +5,7 @@ import net.ritcraft.RockTheVote.RockTheVote;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -94,6 +95,17 @@ public class VoteManager {
                         Language.format(desc), Language.format(passMessage), barColor, barStyle));
             }
         }
+    }
+
+    /**
+     * Update all of the active votes.
+     */
+    public void updateVotes() {
+        votes.values().forEach(Vote::update);
+    }
+
+    public void revokeVotes(Player p) {
+        votes.values().forEach(v -> v.revokeVote(p));
     }
 
     /**
